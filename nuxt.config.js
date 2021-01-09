@@ -2,7 +2,7 @@ export default {
   server: {
     port: process.env.PORT, // default: 3000
     //host: '192.168.1.240' // default: localhost
-    host: 'localhost'
+    host: process.env.HOST //'localhost'
   },
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
