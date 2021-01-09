@@ -84,6 +84,8 @@ export default {
     strategies: {
       primary: {
         _scheme: "local",
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
         endpoints: {
           login: { url: '/auth/token', method: 'post', propertyName: 'access_token' },
           logout: false,
