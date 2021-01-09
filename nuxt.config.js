@@ -1,4 +1,8 @@
 export default {
+  env: {
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET
+  },
   server: {
     port: process.env.PORT, // default: 3000
     //host: '192.168.1.240' // default: localhost

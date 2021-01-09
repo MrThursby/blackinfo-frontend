@@ -50,8 +50,8 @@ export default {
     }
   },
   computed: {
-    client_id() { return process.env.CLIENT_ID },
-    client_secret() { return process.env.CLIENT_SECRET },
+    client_id() { return process.env.clientId },
+    client_secret() { return process.env.clientSecret },
   },
   methods: {
     async userLogin() {

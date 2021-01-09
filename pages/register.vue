@@ -128,9 +128,9 @@ export default {
             username: this.form.email,
             password: this.form.password,
             grant_type: "password",
-            client_id: process.env.CLIENT_ID,
+            client_id: process.env.clientId,
             scope: "*",
-            client_secret: process.env.CLIENT_SECRET,
+            client_secret: process.env.clientSecret,
           },
         });
       } catch (e) {
