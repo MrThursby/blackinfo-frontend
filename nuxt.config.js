@@ -60,14 +60,14 @@ export default {
   proxy: {
     '/auth': {
       target: process.env.API_URL + '/oauth',
-      changeOrigin: true,
+      changeOrigin: false,
       pathRewrite: {
         '^/auth' : '/'
       }
     },
     '/api': {
       target: process.env.API_URL + '/api',
-      changeOrigin: true,
+      changeOrigin: false,
       pathRewrite: {
         '^/api' : '/'
       }
