@@ -22,12 +22,13 @@
         </div>
       </div>
       <div class="col-12 col-lg-6 h-auto">
-        <form action="GET">
+        <form @submit.prevent="getQuery">
           <div class="input-group">
 <!--            <div class="input-group-prepend">
               <a class="btn btn-primary" href="#">Выбрать регион</a>
             </div>-->
             <input
+              v-model="query"
               aria-describedby="button-addon2"
               aria-label="Любые данные о соискателе..."
               class="form-control"
@@ -38,7 +39,7 @@
               <button
                 id="button-addon2"
                 class="btn btn-outline-secondary"
-                type="button"
+                type="submit"
               >
                 Найти
               </button>
@@ -48,12 +49,14 @@
       </div>
     </div>
     <h1>Соискатели</h1>
-    <div id="accordion" class="accordion mb-2">
+    <div v-if="clients.length === 0 && clientsMeta.count !== 0">
+      <Loading />
+    </div>
+    <div v-if="clients.length !== 0" id="clients" class="accordion mb-2" role="tablist">
       <b-card v-for="(client, index) of clients" :key="index" no-body>
         <b-card-header class="p-1" header-tag="header" role="tab">
           <b-button
-            v-b-toggle
-            :href="'#accordion-' + index"
+            v-b-toggle="'clients-'+index"
             block
             class="text-left shadow-none text-decoration-none text-dark"
             variant="link"
@@ -67,14 +70,14 @@
                 <b-icon aria-hidden="true" font-scale="0.8" icon="caret-down-fill" shift-v="5"></b-icon>
               </div>
               <div class="col-auto">{{ client.last_name }} {{ client.first_name }} {{ client.middle_name }}</div>
-              <div class="col-auto d-none d-sm-block when-closed text-truncate">
+              <div class="col-auto d-none <!--d-sm-block when-closed--> text-truncate">
                 {{ client.passport }}
               </div>
               <div class="col text-right">{{ client.created_at }}</div>
             </div>
           </b-button>
         </b-card-header>
-        <b-collapse :id="'accordion-' + index" accordion="accordion" role="tabpanel">
+        <b-collapse :id="'clients-' + index" accordion="clients" role="tabpanel">
           <b-card-body>
             <b-card-text v-if="current">
               <div class="row">
@@ -82,20 +85,20 @@
                   <span class="font-weight-bold">Имя:</span> {{ current.first_name }}<br/>
                   <span class="font-weight-bold">Фамилия:</span> {{ current.last_name }} <br/>
                   <span class="font-weight-bold">Отчество:</span> {{ current.middle_name }} <br/>
-                  <span class="font-weight-bold">Телефон:</span> {{ current.phone }} <br/>
+                  <span class="font-weight-bold">Дата рождения:</span> {{ current.date_of_birth }} <br/>
                 </div>
                 <div class="col-md mb-2">
-                  <span class="font-weight-bold">Серия и номер паспорта:</span>
-                  {{ current.passport }} <br/>
+                  <span class="font-weight-bold">Серия и номер паспорта:</span> {{ current.passport }} <br/>
                   <span class="font-weight-bold">Кем выдан:</span> {{ current.passport_issued_by }} <br/>
                   <span class="font-weight-bold">Когда выдан:</span> {{ current.passport_issued_date }} <br/>
+                  <span class="font-weight-bold">Телефон:</span> {{ current.phone }} <br/>
                 </div>
               </div>
               <span class="font-weight-bold">Нарушение:</span><br/>
               <p class="mb-2">
                 {{ current.violation }}
               </p>
-              <span class="font-weight-bold" v-if="!!current.violation_status">Ущерб возмещён</span><br/>
+              <span class="font-weight-bold" v-if="!!current.violation_status">Ущерб возмещён</span>
               <span class="font-weight-bold" v-if="!current.violation_status">Ущерб не возмещён</span><br/>
               <div class="row align-items-center">
                 <div class="col">
@@ -120,20 +123,25 @@
                 </div>
               </div>
             </b-card-text>
+            <b-card-text v-if="!current" class="p-3">
+              <Loading />
+            </b-card-text>
           </b-card-body>
         </b-collapse>
       </b-card>
     </div>
-    <b-modal id="clients-edit" size="lg" title="BootstrapVue">
-      <EditForm/>
+    <b-modal id="clients-edit" size="lg" title="BlackInfo" class="pl-0" hide-footer>
+      <EditForm :client="current" />
     </b-modal>
-    <span>Уточните критерии запроса, для уменьшения числа результатов {{  }}</span>
+    <span v-if="clientsMeta.count === 0">Список пуст</span>
+    <span v-if="clientsMeta.count !== 0 && clients.length !== 0">Уточните критерии запроса, для уменьшения числа результатов</span>
   </div>
 </template>
 
 <script>
 import EditForm from '~/components/clients/EditForm'
-//import { mapGetters } from 'vuex'
+import Loading from "~/components/Loading";
+// import { mapGetters } from 'vuex'
 export default {
   middleware: 'auth',
   async fetch({store}) {
@@ -145,10 +153,16 @@ export default {
     clients() {
       return this.$store.getters["clients/clients"]
     },
+    clientsMeta() {
+      return this.$store.getters["clients/meta"]
+    },
     current() {
       return this.$store.getters["clients/current"]
     },
   },
+  data: () => ({
+    query: '',
+  }),
   methods: {
     getAll() {
       this.$store.dispatch("clients/fetch")
@@ -156,11 +170,18 @@ export default {
     getOwns() {
       this.$store.dispatch("clients/fetchOwns")
     },
+    getQuery() {
+      this.$store.dispatch("clients/fetchQuery", this.query)
+    },
     getCurrent(id) {
-      this.$store.dispatch("clients/fetchCurrent", id)
+      if(this.current.id !== id) {
+        this.$store.dispatch("clients/clearCurrent", id)
+        this.$store.dispatch("clients/fetchCurrent", id)
+      }
     },
   },
   components: {
+    Loading,
     EditForm
   }
 }
@@ -169,6 +190,6 @@ export default {
 <style lang="scss" scoped>
 .collapsed .when-open,
 .not-collapsed .when-closed {
-  display: none;
+  display: none!important;
 }
 </style>

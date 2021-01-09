@@ -17,12 +17,26 @@
                     </ul>
                 </div>
                 <div class="col-12 col-sm text-sm-right align-self-end">
-                    &copy; Все права защищены - 2020
+                    <!--&copy; Все права защищены - 2020-->
+                  Соискателей в базе: {{ count }}
                 </div>
             </div>
         </div>
     </footer>
 </template>
+
+<script>
+export default {
+  computed: {
+    count() {
+      return this.$store.getters["clients/count"]
+    }
+  },
+  mounted() {
+    this.$store.dispatch("clients/fetchCount")
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .nav {

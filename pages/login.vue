@@ -44,7 +44,7 @@ export default {
       grant_type: "password",
       client_id: 2,
       scope: "*",
-      client_secret: "Oxsqiq58ed9GugmmDL7l0DwGebdJek96F8K4GWmJ",
+      client_secret: "oxWBwtWbs2dYC7cx0W71mwMgH2Ro3yftDjZkRPVI",
     },
   }),
   methods: {
