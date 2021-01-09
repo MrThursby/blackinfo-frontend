@@ -1,9 +1,9 @@
 export default {
-  /*server: {
-    port: 3000, // default: 3000
+  server: {
+    port: process.env.PORT, // default: 3000
     //host: '192.168.1.240' // default: localhost
     host: 'localhost'
-  },*/
+  },
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'BlackInfo',
@@ -38,6 +38,7 @@ export default {
         regular: true
       }
     }],
+    '@nuxtjs/dotenv'
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -58,14 +59,14 @@ export default {
 
   proxy: {
     '/auth': {
-      target: 'http://127.0.0.1:8000/oauth',
+      target: process.env.API_URL + '/oauth',
       changeOrigin: true,
       pathRewrite: {
         '^/auth' : '/'
       }
     },
     '/api': {
-      target: 'http://127.0.0.1:8000/api',
+      target: process.env.API_URL + '/api',
       changeOrigin: true,
       pathRewrite: {
         '^/api' : '/'
