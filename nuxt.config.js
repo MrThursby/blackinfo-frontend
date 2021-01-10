@@ -61,6 +61,9 @@ export default {
     '/auth': {
       target: process.env.API_URL + '/oauth',
       changeOrigin: false,
+      headers: {
+        Authorization: "Basic MjpVNTFaQzM1SWwzaEpHS3NHb0FOTkp6cHBuUDlobHdGS2dDcHpmVFJS"
+      },
       pathRewrite: {
         '^/auth' : '/'
       }
@@ -87,9 +90,7 @@ export default {
         clientId: 2, // process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         endpoints: {
-          login: { url: '/auth/token', method: 'post', propertyName: 'access_token', headers: {
-            Authorization: "Basic MjoxeTF6TGxza3NrbU9LMFVUa3VDdGI2YkxmYzdOUlJZQnhQQWh3UHRB"
-            } },
+          login: { url: '/auth/token', method: 'post', propertyName: 'access_token'},
           logout: false,
           user: { url: '/api/user', method: 'get' },
         }
