@@ -43,15 +43,13 @@ export default {
         username: "",
         password: "",
         grant_type: "password",
-        client_id: this.client_id,
         scope: "*",
-        client_secret: this.client_secret,
       },
     }
   },
   computed: {
-    client_id() { return process.env.clientId },
-    client_secret() { return process.env.clientSecret },
+    client_id() { return process.env.CLIENT_ID },
+    client_secret() { return process.env.CLIENT_SECRET },
   },
   methods: {
     async userLogin() {

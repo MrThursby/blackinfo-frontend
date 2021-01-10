@@ -1,8 +1,4 @@
 export default {
-  env: {
-    clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET
-  },
   server: {
     port: process.env.PORT, // default: 3000
     //host: '192.168.1.240' // default: localhost
@@ -88,10 +84,12 @@ export default {
     strategies: {
       primary: {
         _scheme: "local",
-        clientId: process.env.CLIENT_ID,
+        clientId: 2, // process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         endpoints: {
-          login: { url: '/auth/token', method: 'post', propertyName: 'access_token' },
+          login: { url: '/auth/token', method: 'post', propertyName: 'access_token', headers: {
+            Authorization: "Basic MjoxeTF6TGxza3NrbU9LMFVUa3VDdGI2YkxmYzdOUlJZQnhQQWh3UHRB"
+            } },
           logout: false,
           user: { url: '/api/user', method: 'get' },
         }
