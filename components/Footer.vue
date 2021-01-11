@@ -5,14 +5,10 @@
                 <div class="col-auto pb-3 pb-sm-0">
                     <h5>BlackInfo</h5>
                     <ul class="nav flex-column flex-sm-row mb-0">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-secondary p-0 pr-sm-3">Оферта</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-secondary p-0 pr-sm-3">Соглашение</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-secondary p-0">О нас</a>
+                        <li v-for="(item, index) of menu" class="nav-item" :key="index">
+                            <nuxt-link :to="'/pages/'+item.id" class="nav-link text-secondary p-0 pr-sm-3">
+                              {{ item.title }}
+                            </nuxt-link>
                         </li>
                     </ul>
                 </div>
@@ -30,6 +26,9 @@ export default {
   computed: {
     count() {
       return this.$store.getters["clients/count"]
+    },
+    menu() {
+      return this.$store.getters["navigation/footer"]
     }
   },
   mounted() {
