@@ -1,7 +1,7 @@
 <template>
   <div class="min-vh-100 d-flex flex-column">
     <Navbar sitename="BlackInfo" class="sticky-top" />
-    <main class="content">
+    <main class="content d-flex flex-column f10auto">
       <div class="container" v-if="$auth.user !== null && $auth.user.email_verified_at === null">
         <b-alert class="mt-3 mb-0" variant="warning" show dismissible fade>На ваш Email отправлено письмо с подтверждением. <a href="#"> Потворить отправку. </a></b-alert>
       </div>

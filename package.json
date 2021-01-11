@@ -18,7 +18,7 @@
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/fontawesome": "^1.1.2",
-    "@nuxtjs/proxy": "^2.1.0",
+    "@nuxtjs/proxy": "^2.0.1",
     "@popperjs/core": "^2.5.4",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.0",

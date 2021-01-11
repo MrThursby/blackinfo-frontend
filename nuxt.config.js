@@ -60,9 +60,10 @@ export default {
   proxy: {
     '/auth': {
       target: process.env.API_URL + '/oauth',
-      changeOrigin: false,
+      changeOrigin: true,
       headers: {
-        Authorization: "Basic MjpVNTFaQzM1SWwzaEpHS3NHb0FOTkp6cHBuUDlobHdGS2dDcHpmVFJS"
+        Authorization: "Basic MjpVNTFaQzM1SWwzaEpHS3NHb0FOTkp6cHBuUDlobHdGS2dDcHpmVFJS" // api.blackinfo.smykova-n.ru
+        //Authorization: "Basic MjpnOFJCS2FURjlSVENieDY0cHVGUWVuU29FYXg5dnZjQURGdGdIaUU0" // localhost 9-January
       },
       pathRewrite: {
         '^/auth' : '/'
@@ -70,7 +71,7 @@ export default {
     },
     '/api': {
       target: process.env.API_URL + '/api',
-      changeOrigin: false,
+      changeOrigin: true,
       pathRewrite: {
         '^/api' : '/'
       }
