@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    name: "_id.vue",
+    name: "pages-show",
     async fetch({store, params}){
       await store.dispatch('pages/fetchCurrent', params.id);
     },
