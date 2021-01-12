@@ -47,8 +47,9 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     '@nuxtjs/auth',
+    '@nuxtjs/markdownit',
     'bootstrap-vue/nuxt',
-    'nuxt-validate'
+    'nuxt-validate',
   ],
 
 
@@ -103,6 +104,18 @@ export default {
     bootstrapCSS: false, // Or `css: false`
     bootstrapVueCSS: false, // Or `bvCSS: false`
     icons: true
+  },
+
+  // See https://github.com/markdown-it/markdown-it
+  markdownit: {
+    injected: true,
+    preset: 'default',
+    linkify: true,
+    breaks: true,
+    use: [
+      'markdown-it-div',
+      'markdown-it-attrs'
+    ],
   },
 
   nuxtValidate: {

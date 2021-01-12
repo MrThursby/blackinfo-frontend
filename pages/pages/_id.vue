@@ -1,7 +1,7 @@
 <template>
   <div class="container my-5">
     <div class="row justify-content-start">
-      <div class="col-xl-10 col-xxl-8" v-html="page.content"></div>
+      <div class="col-xl-10 col-xxl-8" v-html="$md.render(page.content)"></div>
     </div>
   </div>
 </template>
@@ -9,7 +9,7 @@
 <script>
   export default {
     name: "pages-show",
-    async fetch({store, params}){
+    async fetch({store, params}) {
       await store.dispatch('pages/fetchCurrent', params.id);
     },
     computed: {
