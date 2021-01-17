@@ -63,8 +63,7 @@ export default {
       target: process.env.API_URL + '/oauth',
       changeOrigin: process.env.PORT === 3000,
       headers: {
-        Authorization: "Basic MjpVNTFaQzM1SWwzaEpHS3NHb0FOTkp6cHBuUDlobHdGS2dDcHpmVFJS" // api.blackinfo.smykova-n.ru
-        //Authorization: "Basic MjpnOFJCS2FURjlSVENieDY0cHVGUWVuU29FYXg5dnZjQURGdGdIaUU0" // localhost 9-January
+        Authorization: process.env.AUTH
       },
       pathRewrite: {
         '^/auth' : '/'
