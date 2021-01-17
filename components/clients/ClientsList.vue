@@ -6,11 +6,11 @@
     </div>
     <div v-if="clients.length !== 0" id="clients" class="accordion mb-2" role="tablist">
       <b-card v-for="(client, index) of clients" :key="index" no-body>
-        <b-card-header class="p-1" header-tag="header" role="tab">
+        <b-card-header class="p-1" header-tag="header" role="tab" header-class="bg-black">
           <b-button
             v-b-toggle="'clients-'+index"
             block
-            class="text-left shadow-none text-decoration-none text-dark"
+            class="text-left shadow-none text-decoration-none text-light"
             variant="link"
             @click="getCurrent(client.id)"
           >

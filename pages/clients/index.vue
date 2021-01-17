@@ -16,9 +16,9 @@
       </div>
       <div class="col-auto pb-lg-0 pb-3 h-auto">
         <div class="btn-group">
-          <button class="btn btn-info" @click="getOwns">Мои</button>
+          <button class="btn btn-primary" @click="getOwns">Мои</button>
 <!--          <button class="btn btn-warning" >Новые</button>-->
-          <button class="btn btn-info" @click="getAll">Все</button>
+          <button class="btn btn-primary" @click="getAll">Все</button>
         </div>
       </div>
       <div class="col-12 col-lg-6 h-auto">
@@ -31,14 +31,14 @@
               v-model="query"
               aria-describedby="button-addon2"
               aria-label="Любые данные о соискателе..."
-              class="form-control"
+              class="form-control bg-dark"
               placeholder="Любые данные о соискателе..."
               type="text"
             />
             <div class="input-group-append">
               <button
                 id="button-addon2"
-                class="btn btn-outline-secondary"
+                class="btn btn-primary"
                 type="submit"
               >
                 Найти
