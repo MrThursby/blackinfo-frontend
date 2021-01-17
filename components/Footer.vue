@@ -30,9 +30,6 @@ export default {
     menu() {
       return this.$store.getters["navigation/footer"]
     }
-  },
-  mounted() {
-    this.$store.dispatch("clients/fetchCount")
   }
 }
 </script>

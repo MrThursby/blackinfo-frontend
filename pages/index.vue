@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    async fetch({store, params}) {
+    async fetch({store}) {
       await store.dispatch('pages/fetchCurrent', 1);
     },
     computed: {

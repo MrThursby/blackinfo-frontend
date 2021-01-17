@@ -16,9 +16,6 @@ import Navbar from '~/components/Navbar'
 import Footer from '~/components/Footer'
 import {name} from '~/package.json'
 export default {
-  mounted() {
-    this.$store.dispatch('navigation/fetch')
-  },
   components: {
     Navbar, Footer
   }

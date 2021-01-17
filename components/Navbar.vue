@@ -18,7 +18,7 @@
 
         <b-navbar-nav v-if="$auth.loggedIn === true" class="ml-auto mb-2 mb-lg-0">
           <b-nav-item-dropdown :text="$auth.user.name" right>
-          <b-dropdown-item href="#" active-class="active">Профиль</b-dropdown-item>
+          <b-dropdown-item to="/profile" active-class="active">Профиль</b-dropdown-item>
           <b-dropdown-item href="#" v-if="$auth.user.role === 'admin'" active-class="active">Настройки</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-item @click="logoutUser">Выход</b-dropdown-item>

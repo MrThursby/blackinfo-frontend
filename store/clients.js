@@ -64,7 +64,7 @@ export const actions = {
     commit('setCurrent', client.data)
   },
   async fetchCount({commit}) {
-    const client = await this.$axios.$get('/api/clients?count=1')
+    const client = await this.$axios.$get('/api/clients/count')
     commit('setCount', client.data)
   },
   async reFetchCurrent({commit, state}) {
