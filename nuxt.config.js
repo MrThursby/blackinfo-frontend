@@ -63,7 +63,7 @@ export default {
       target: process.env.API_URL + '/oauth',
       changeOrigin: process.env.PORT === 3000,
       headers: {
-        Authorization: "Basuc " + process.env.AUTH
+        Authorization: "Basic " + process.env.AUTH
       },
       pathRewrite: {
         '^/auth' : '/'
