@@ -1,7 +1,7 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="primary">
-    <div class="container">
-      <b-navbar-brand to="/">{{ sitename }}</b-navbar-brand>
+  <b-navbar toggleable="lg" type="dark" class="px-0" variant="dark">
+    <div class="container px-3">
+      <b-navbar-brand to="/">Black<span class="text-success">Info</span></b-navbar-brand>
 
       <b-navbar-toggle class="p-1 outline-none" target="nav-collapse"></b-navbar-toggle>
 

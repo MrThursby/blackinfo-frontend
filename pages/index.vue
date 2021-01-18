@@ -1,6 +1,6 @@
 <template>
   <div class="container my-5">
-    <div class="row justify-content-start">
+    <div class="row justify-content-center">
       <div class="col-xl-10 col-xxl-8" v-html="$md.render(page.content)"></div>
     </div>
   </div>

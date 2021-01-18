@@ -6,7 +6,7 @@
     </div>
     <div v-if="clients.length !== 0" id="clients" class="accordion mb-2" role="tablist">
       <b-card v-for="(client, index) of clients" :key="index" no-body>
-        <b-card-header class="p-1" header-tag="header" role="tab" header-class="bg-black">
+        <b-card-header class="p-1" header-tag="header" role="tab" header-class="bg-dark">
           <b-button
             v-b-toggle="'clients-'+index"
             block
@@ -34,19 +34,19 @@
             <b-card-text v-if="current">
               <div class="row">
                 <div class="col-md-auto mb-2">
-                  <span class="font-weight-bold">Имя:</span> {{ current.first_name }}<br/>
-                  <span class="font-weight-bold">Фамилия:</span> {{ current.last_name }} <br/>
-                  <span class="font-weight-bold">Отчество:</span> {{ current.middle_name }} <br/>
-                  <span class="font-weight-bold">Дата рождения:</span> {{ current.date_of_birth }} <br/>
+                  <span class="font-weight-bold text-light">Имя:</span> {{ current.first_name }}<br/>
+                  <span class="font-weight-bold text-light">Фамилия:</span> {{ current.last_name }} <br/>
+                  <span class="font-weight-bold text-light">Отчество:</span> {{ current.middle_name }} <br/>
+                  <span class="font-weight-bold text-light">Дата рождения:</span> {{ current.date_of_birth }} <br/>
                 </div>
                 <div class="col-md mb-2">
-                  <span class="font-weight-bold">Серия и номер паспорта:</span> {{ current.passport }} <br/>
-                  <span class="font-weight-bold">Кем выдан:</span> {{ current.passport_issued_by }} <br/>
-                  <span class="font-weight-bold">Когда выдан:</span> {{ current.passport_issued_date }} <br/>
-                  <span class="font-weight-bold">Телефон:</span> {{ current.phone }} <br/>
+                  <span class="font-weight-bold text-light">Серия и номер паспорта:</span> {{ current.passport }} <br/>
+                  <span class="font-weight-bold text-light">Кем выдан:</span> {{ current.passport_issued_by }} <br/>
+                  <span class="font-weight-bold text-light">Когда выдан:</span> {{ current.passport_issued_date }} <br/>
+                  <span class="font-weight-bold text-light">Телефон:</span> {{ current.phone }} <br/>
                 </div>
               </div>
-              <span class="font-weight-bold">Нарушение:</span><br/>
+              <span class="font-weight-bold text-light">Нарушение:</span><br/>
               <p class="mb-2">
                 {{ current.violation }}
               </p>
@@ -54,7 +54,7 @@
               <span class="font-weight-bold" v-if="!current.violation_status">Ущерб не возмещён</span><br/>
               <div class="row align-items-center">
                 <div class="col">
-                  <span class="font-weight-bold">Автор: </span>
+                  <span class="font-weight-bold text-light">Автор: </span>
                   <a href="#">{{ client.author.name }}</a>
                 </div>
                 <div class="col-auto">

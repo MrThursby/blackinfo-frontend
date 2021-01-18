@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap');
 /*body {
   background: #fafafa;
 }*/
+.navbar-brand {
+  font-family: 'East Sea Dokdo', cursive;
+  font-size: 35px;
+  line-height: 16px;
+}
 .outline-none {
     outline: none!important;
 }

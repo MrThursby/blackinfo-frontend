@@ -2,8 +2,17 @@
   <div class="min-vh-100 d-flex flex-column">
     <Navbar sitename="BlackInfo" class="sticky-top" />
     <main class="content d-flex flex-column f10auto">
-      <div class="container" v-if="$auth.user !== null && $auth.user.email_verified_at === null">
-        <b-alert class="mt-3 mb-0" variant="warning" show dismissible fade>На ваш Email отправлено письмо с подтверждением. <a href="#"> Потворить отправку. </a></b-alert>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col">
+            <b-alert class="mt-3 mb-0" variant="warning" show fade>
+              <h4>Внимание</h4>
+              На ваш Email отправлено письмо с подтверждением. <br>
+              Откройте письмо и нажмите "Подтвердить Email" <br>
+              Если письмо не пришло, вы можете <a href="#"> потворить отправку. </a>
+            </b-alert>
+          </div>
+        </div>
       </div>
       <Nuxt />
     </main>

@@ -31,7 +31,7 @@
               v-model="query"
               aria-describedby="button-addon2"
               aria-label="Любые данные о соискателе..."
-              class="form-control bg-dark"
+              class="form-control"
               placeholder="Любые данные о соискателе..."
               type="text"
             />
