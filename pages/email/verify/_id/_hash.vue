@@ -17,6 +17,7 @@
 
   export default {
     name: "verify-email",
+    layout: 'verify',
     data() {
       return {
         verified: null,
@@ -32,6 +33,7 @@
         })
         .then(r => {
           this.verified = true
+          this.$auth.fetchUser()
         }).catch(e => {
           this.verified = false
         })
