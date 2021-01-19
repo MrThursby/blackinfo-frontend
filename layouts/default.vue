@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col">
-            <b-alert v-if="$auth.user !== undefined && $auth.user.email_verified_at !== null" class="mt-3 mb-0" variant="warning" show fade>
+            <b-alert v-if="$auth.user !== null && $auth.user.email_verified_at !== null" class="mt-3 mb-0" variant="warning" show fade>
               <h4>Внимание</h4>
               На ваш Email отправлено письмо с подтверждением. <br>
               Откройте письмо и нажмите "Подтвердить Email" <br>
