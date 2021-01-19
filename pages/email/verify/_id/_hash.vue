@@ -31,9 +31,9 @@
           }
         })
         .then(r => {
-          this.email = true
+          this.verified = true
         }).catch(e => {
-          this.email = false
+          this.verified = false
         })
     },
     components: {Loading}
