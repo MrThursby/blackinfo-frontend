@@ -9,7 +9,7 @@
               <h4>Внимание</h4>
               На ваш Email отправлено письмо с подтверждением. <br>
               Откройте письмо и нажмите "Подтвердить Email" <br>
-              Если письмо не пришло, вы можете <a href="#"> потворить отправку. </a>
+              Если письмо не пришло, вы можете <a role="button" class="cursor-pointer text-decoration-underline" @click="getVerificationEmail"> потворить отправку. </a>
             </b-alert>
           </div>
         </div>
@@ -25,6 +25,25 @@ import Navbar from '~/components/Navbar'
 import Footer from '~/components/Footer'
 import {name} from '~/package.json'
 export default {
+  methods: {
+    async getVerificationEmail() {
+      await this.$axios.post('/api/email/verification-notification').then(r => {
+        this.$bvToast.toast(`Письмо успешно отправленно`, {
+          title: "BlackInfo",
+          autoHideDelay: 5000,
+          variant: "success",
+          appendToast: false,
+        })
+      }).catch(e => {
+        this.$bvToast.toast(`Ошибка. Попробуйте позже`, {
+          title: "BlackInfo",
+          autoHideDelay: 5000,
+          variant: "danger",
+          appendToast: false,
+        })
+      })
+    }
+  },
   components: {
     Navbar, Footer
   }

@@ -92,6 +92,7 @@
 
 <script>
   import Loading from "~/components/Loading";
+  import EditForm from "~/components/clients/EditForm";
   export default {
     name: "ClientsList",
     props: {
@@ -117,7 +118,7 @@
       },
     },
     components: {
-      Loading
+      Loading, EditForm
     }
   }
 </script>

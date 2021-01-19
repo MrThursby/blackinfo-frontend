@@ -61,9 +61,9 @@ export default {
   proxy: {
     '/auth': {
       target: process.env.API_URL + '/oauth',
-      changeOrigin: process.env.PORT === 3000,
+      changeOrigin: false, //process.env.PORT === 3000,
       headers: {
-        Authorization: "Basic " + process.env.AUTH
+        Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET).toString('base64')
       },
       pathRewrite: {
         '^/auth' : '/'
@@ -74,6 +74,13 @@ export default {
       changeOrigin: process.env.PORT === 3000,
       pathRewrite: {
         '^/api' : '/'
+      }
+    },
+    '/storage': {
+      target: process.env.API_URL + '/storage',
+      changeOrigin: process.env.PORT === 3000,
+      pathRewrite: {
+        '^/storage' : '/'
       }
     },
   },
@@ -88,8 +95,8 @@ export default {
     strategies: {
       primary: {
         _scheme: "local",
-        clientId: 2, // process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
+        //clientId: 2, // process.env.CLIENT_ID,
+        //clientSecret: process.env.CLIENT_SECRET,
         endpoints: {
           login: { url: '/auth/token', method: 'post', propertyName: 'access_token'},
           logout: false,
