@@ -5,7 +5,8 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col">
-            <b-alert v-if="$auth.loggedIn === true && $auth.user.email_verified_at === null" class="mt-3 mb-0" variant="warning" show fade>
+            <b-alert v-if="$auth.loggedIn === true && $auth.user.email_verified_at === null" class="mt-3 mb-0" variant="warning"
+                     :show="true" fade>
               <h4>Внимание</h4>
               На ваш Email отправлено письмо с подтверждением. <br>
               Откройте письмо и нажмите "Подтвердить Email" <br>
@@ -23,18 +24,17 @@
 <script>
 import Navbar from '~/components/Navbar'
 import Footer from '~/components/Footer'
-import {name} from '~/package.json'
 export default {
   methods: {
     async getVerificationEmail() {
-      await this.$axios.post('/api/email/verification-notification').then(r => {
+      await this.$axios.post('/api/email/verification-notification').then(() => {
         this.$bvToast.toast(`Письмо успешно отправленно`, {
           title: "BlackInfo",
           autoHideDelay: 5000,
           variant: "success",
           appendToast: false,
         })
-      }).catch(e => {
+      }).catch(() => {
         this.$bvToast.toast(`Ошибка. Попробуйте позже`, {
           title: "BlackInfo",
           autoHideDelay: 5000,

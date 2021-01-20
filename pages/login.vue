@@ -62,8 +62,9 @@
       async userLogin() {
         if(this.loading === false) {
           this.loading = true
-          await this.$auth.loginWith("primary", {data: this.form}).then(r => {
+          await this.$auth.loginWith("primary", {data: this.form}).then(() => {
             this.$auth.fetchUser();
+            this.loading = false;
           }).catch(e => {
             let msg
             switch (e.response.status) {
@@ -85,6 +86,7 @@
               variant: "danger",
               appendToast: false,
             });
+            this.loading = false;
           })
         } else {
           this.$bvToast.toast("Операция выполняется, подождите", {

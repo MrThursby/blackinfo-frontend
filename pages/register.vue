@@ -158,7 +158,7 @@
       async register() {
         if(this.loading === false) {
           this.loading = true
-          await this.$axios.$post("/api/register", this.form).then(r => {
+          await this.$axios.$post("/api/register", this.form).then(() => {
             this.login()
             this.loading = false
           }).catch(e => {
@@ -207,7 +207,7 @@
         }
       },
       async login() {
-          const login = await this.$auth.loginWith("primary", {
+          await this.$auth.loginWith("primary", {
             data: {
               username: this.form.email,
               password: this.form.password,
@@ -216,7 +216,8 @@
               scope: "*",
               client_secret: process.env.clientSecret,
             },
-          }).then(r => {
+          }).then(() => {
+            this.$router.push('/clients')
           }).catch(e => {
             let msg
             switch (e.response.status) {

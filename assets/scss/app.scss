@@ -2,7 +2,7 @@
 
 @import './variables';
 @import './bootswatch_variables';
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-vue/src/index';
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-vue/src/index";
 @import './bootswatch';
 @import './main.scss';
