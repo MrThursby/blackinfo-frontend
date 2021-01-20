@@ -120,7 +120,8 @@ export default {
     breaks: true,
     use: [
       'markdown-it-div',
-      'markdown-it-attrs'
+      'markdown-it-attrs',
+      'markdown-it-container',
     ],
   },
 
