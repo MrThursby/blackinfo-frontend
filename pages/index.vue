@@ -1,7 +1,10 @@
 <template>
   <div class="container my-5">
     <div class="row justify-content-center">
-      <div class="col-xl-10 col-xxl-8" v-html="$md.render(page.content)"></div>
+      <transition name="page">
+        <div v-if="page.id === 1"
+             class="col-xl-10 col-xxl-8" v-html="$md.render(page.content)"></div>
+      </transition>
     </div>
   </div>
 </template>
