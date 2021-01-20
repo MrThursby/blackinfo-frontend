@@ -47,6 +47,7 @@
           grant_type: "password",
           scope: "*",
         },
+        loading: false,
       }
     },
     computed: {
@@ -59,30 +60,40 @@
     },
     methods: {
       async userLogin() {
-        await this.$auth.loginWith("primary", {data: this.form}).then(r => {
-          this.$auth.fetchUser();
-        }).catch(e => {
-          let msg
-          switch (e.response.status) {
-            case 400:
-              //if(e.response.error === "invalid_grant"){
-              msg = 'Неверный логин или пароль'
-              //}
-              break
-            case 401:case 500:case 504:
-              msg = "Ошибка. Попробуйте позже"
-              break
-            default:
-              msg = "Неизвестная ошибка. Попробуйте позже"
-              break
-          }
-          this.$bvToast.toast(msg, {
+        if(this.loading === false) {
+          this.loading = true
+          await this.$auth.loginWith("primary", {data: this.form}).then(r => {
+            this.$auth.fetchUser();
+          }).catch(e => {
+            let msg
+            switch (e.response.status) {
+              case 400:
+                //if(e.response.error === "invalid_grant"){
+                msg = 'Неверный логин или пароль'
+                //}
+                break
+              case 401:case 500:case 504:
+                msg = "Ошибка. Попробуйте позже"
+                break
+              default:
+                msg = "Неизвестная ошибка. Попробуйте позже"
+                break
+            }
+            this.$bvToast.toast(msg, {
+              title: "BlackInfo",
+              autoHideDelay: 5000,
+              variant: "danger",
+              appendToast: false,
+            });
+          })
+        } else {
+          this.$bvToast.toast("Операция выполняется, подождите", {
             title: "BlackInfo",
             autoHideDelay: 5000,
-            variant: "danger",
+            variant: "warning",
             appendToast: false,
-          });
-        })
+          })
+        }
       },
     },
   };

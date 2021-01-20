@@ -122,7 +122,7 @@ export default {
   methods: {
     async updateClient() {
       await this.$axios.$put('/api/clients/' + this.client.id, this.form).then(r => {
-        this.$root.$emit('bv::hide::modal', 'clients-edit', '#clientModalSubmit')
+        //this.$root.$emit('bv::hide::modal', 'clients-edit', '#clientModalSubmit')
         this.$store.dispatch("clients/reFetchCurrent")
         this.$bvToast.toast(`Соискатель успешно обновлён`, {
           title: "BlackInfo",
@@ -142,16 +142,22 @@ export default {
         const response = await this.$axios.$delete('/api/clients/' + this.client.id)
         if (response.success === true) {
           this.$root.$emit('bv::hide::modal', 'clients-edit', '#clientDelete')
-          this.$bvToast.toast(`Соискатель успешно удалён`, {
-            title: "BlackInfo",
-            autoHideDelay: 5000,
-            variant: "info",
-            appendToast: false,
-          });
-          await this.$store.dispatch("clients/reFetch")
+          await this.$store.dispatch("clients/reFetch").then(r => {
+            this.$bvToast.toast(`Соискатель успешно удалён`, {
+              title: "BlackInfo",
+              autoHideDelay: 5000,
+              variant: "success",
+              appendToast: false,
+            });
+          })
         }
       } catch (e) {
-        console.log(e)
+        this.$bvToast.toast(`Ошибка. Соискатель не удалён. Попробуйте позже`, {
+          title: "BlackInfo",
+          autoHideDelay: 5000,
+          variant: "danger",
+          appendToast: false,
+        });
       }
     },
     hideModal() {

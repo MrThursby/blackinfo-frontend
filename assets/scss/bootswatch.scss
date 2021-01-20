@@ -229,6 +229,50 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0
   }
 }
 
+// Indicators ==================================================================
+
+.close {
+  opacity: .4;
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}
+
+.b-toast {
+  border: none;
+  color: $white;
+
+  a,
+  .alert-link {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  @each $color, $value in $theme-colors {
+    &-#{$color} .toast {
+      color: #f9f9f9;
+      border-color: lighten(theme-color($color), 15);
+      @if $enable-gradients {
+        background: $value linear-gradient(180deg, mix($white, $value, 15%), $value) repeat-x;
+        .toast-header {
+          color: #f9f9f9;
+          border-color: lighten(theme-color($color), 15);
+          background: $value linear-gradient(180deg, mix($white, $value, 15%), $value) repeat-x;
+        }
+      } @else {
+        background-color: $value;
+        .toast-header {
+          color: #f9f9f9;
+          border-color: lighten(theme-color($color), 15);
+          background: $value;
+        }
+      }
+    }
+  }
+}
+
 // Containers ==================================================================
 
 .list-group-item-action {
