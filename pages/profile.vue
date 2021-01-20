@@ -21,7 +21,7 @@
                           icon="caret-down-fill"></b-icon>
                 </div>
               </a>
-              <div v-if="$auth.user.about === null" class="h1 text-light col mb-0 pr-0">{{ $auth.user.name }}</div>
+              <div v-if="$auth.user.about === null" class="h1 text-light">{{ $auth.user.name }}</div>
               <div class="text-center text-md-left">{{ $auth.user.role }}</div>
             </div>
           </div>
@@ -46,7 +46,9 @@
     name: "profile",
     middleware: 'auth',
     async fetch({store}) {
-      await store.dispatch("clients/fetchOwns")
+      if(store.state.auth.user.email_verified_at !== null){
+        await store.dispatch("clients/fetchOwns")
+      }
     },
     data() {
       return {
