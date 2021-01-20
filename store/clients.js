@@ -25,10 +25,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetch({commit}) {
+  async fetch({commit, error}) {
     commit('setClients', [])
     const url = '/api/clients'
-    const clients = await this.$axios.$get(url)
+    const clients = await this.$axios.$get(url)/*.catch(e => {
+      console.log(e.response.code + " " + e.response.data.message)
+    })*/
 
     commit('setLastClientsResponseUrl', url)
     commit('setClients', clients.data.data)
