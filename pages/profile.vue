@@ -34,7 +34,7 @@
       </b-card>
     </div>
     <div class="mt-4">
-      <ClientsList headline="Мои соискатели"/>
+      <ClientsList v-if="$auth.user.email_verified_at !== null" headline="Мои соискатели"/>
     </div>
   </div>
 </template>
