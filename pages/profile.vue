@@ -11,7 +11,7 @@
               </div>
             </div>
             <div class="col-12 col-md-auto ml-md-5 mt-3 mt-md-0">
-              <a role="button" v-b-toggle.profile-info
+              <a v-if="$auth.user.about !== null" role="button" v-b-toggle.profile-info
                  class="row cursor-pointer justify-content-center text-decoration-none text-light align-items-center">
                 <div class="h1 col-auto mb-0 pr-0">{{ $auth.user.name }}</div>
                 <div class="col-auto pl-2">
@@ -21,12 +21,13 @@
                           icon="caret-down-fill"></b-icon>
                 </div>
               </a>
+              <div v-if="$auth.user.about === null" class="h1 text-light col mb-0 pr-0">{{ $auth.user.name }}</div>
               <div class="text-center text-md-left">{{ $auth.user.role }}</div>
             </div>
           </div>
         </b-card-header>
         <b-collapse v-model="profileOpened" id="profile-info" accordion="profile" role="tabpanel">
-          <b-card-body>
+          <b-card-body v-if="$auth.user.about !== null">
             <b-card-text v-html="$md.render($auth.user.about)"></b-card-text>
           </b-card-body>
         </b-collapse>
@@ -39,11 +40,11 @@
 </template>
 
 <script>
-  // http://dreambigprinters.com/wp-content/uploads/2017/11/dbban4.jpg
   import ClientsList from "~/components/clients/ClientsList";
 
   export default {
     name: "profile",
+    middleware: 'auth',
     async fetch({store}) {
       await store.dispatch("clients/fetchOwns")
     },
