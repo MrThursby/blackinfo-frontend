@@ -98,47 +98,87 @@
 </template>
 
 <script>
-export default {
-  layout: "default",
-  middleware: "auth",
-  auth: "guest",
-  data: () => ({
-    form: {
-      name: "",
-      organization_name: "",
-      email: "",
-      inn: "",
-      ogrn: "",
-      phone: "",
-      password: "",
-      password_confirmation: "",
+  export default {
+    layout: "default",
+    middleware: "auth",
+    auth: "guest",
+    data: () => ({
+      form: {
+        name: "",
+        organization_name: "",
+        email: "",
+        inn: "",
+        ogrn: "",
+        phone: "",
+        password: "",
+        password_confirmation: "",
+      },
+    }),
+    methods: {
+      async register() {
+        this.loading = true
+        await this.$axios.$post("/api/register", this.form).then(r => {
+          this.login()
+        }).catch(e => {
+          let msg
+          switch (e.response.status) {
+            case 400:
+              //if(e.response.error === "invalid_grant"){
+              msg = 'Неверный логин или пароль'
+              //}
+              break
+            case 401:case 500:case 504:
+              msg = "Ошибка. Попробуйте позже"
+              break
+            default:
+              msg = "Неизвестная ошибка. Попробуйте позже"
+              break
+          }
+          this.loading = false
+          this.$bvToast.toast(msg, {
+            title: "BlackInfo",
+            autoHideDelay: 5000,
+            variant: "danger",
+            appendToast: false,
+          })
+        })
+      },
+      async login() {
+          const login = await this.$auth.loginWith("primary", {
+            data: {
+              username: this.form.email,
+              password: this.form.password,
+              grant_type: "password",
+              client_id: process.env.clientId,
+              scope: "*",
+              client_secret: process.env.clientSecret,
+            },
+          }).then(r => {
+            this.loading = false
+          }).catch(e => {
+            let msg
+            switch (e.response.status) {
+              case 400:
+                //if(e.response.error === "invalid_grant"){
+                msg = 'Неверный логин или пароль'
+                //}
+                break
+              case 401:case 500:case 504:
+                msg = "Ошибка. Попробуйте позже"
+                break
+              default:
+                msg = "Неизвестная ошибка. Попробуйте позже"
+                break
+            }
+            this.loading = false
+            this.$bvToast.toast(msg, {
+              title: "BlackInfo",
+              autoHideDelay: 5000,
+              variant: "danger",
+              appendToast: false,
+            })
+          })
+      },
     },
-  }),
-  methods: {
-    async register() {
-      try {
-        const response = await this.$axios.$post("/api/register", this.form);
-        await this.login();
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    async login() {
-      try {
-        const login = await this.$auth.loginWith("primary", {
-          data: {
-            username: this.form.email,
-            password: this.form.password,
-            grant_type: "password",
-            client_id: process.env.clientId,
-            scope: "*",
-            client_secret: process.env.clientSecret,
-          },
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    },
-  },
-};
+  };
 </script>

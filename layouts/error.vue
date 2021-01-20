@@ -22,6 +22,7 @@
 <script>
   export default {
     name: "error",
+    layout: 'default',
     props: ['error']
   }
 </script>

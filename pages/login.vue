@@ -76,7 +76,6 @@
               msg = "Неизвестная ошибка. Попробуйте позже"
               break
           }
-          console.info(e.response)
           this.$bvToast.toast(msg, {
             title: "BlackInfo",
             autoHideDelay: 5000,
