@@ -7,7 +7,8 @@
                style="margin-left: -1rem; margin-right: -1rem; background:rgba(0,0,0,0.4);">
             <div class="col-auto">
               <div class="rounded-lg overflow-hidden" style="background: rgba(0,0,0,0.3);">
-                <img width="150" height="150" src="~/assets/img/user.png" alt="">
+                <img v-if="$auth.user.avatar !== null" width="150" height="150" :src="$auth.user.avatar" :alt="$auth.user.name">
+                <img v-if="$auth.user.avatar === null" width="150" height="150" src="~/assets/img/user.png" :alt="$auth.user.name">
               </div>
             </div>
             <div class="col-12 col-md-auto ml-md-5 mt-3 mt-md-0">
