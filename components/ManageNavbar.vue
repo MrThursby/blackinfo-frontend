@@ -1,16 +1,21 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" class="px-0" variant="dark">
+  <b-navbar toggleable="lg" type="light" class="px-0" variant="success">
     <div class="container px-3">
-      <b-navbar-brand to="/">Black<span class="text-success">Info</span></b-navbar-brand>
+      <b-navbar-brand to="/">Black<span class="text-white">Info</span></b-navbar-brand>
 
       <b-navbar-toggle class="p-1 outline-none" target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="mb-1 mb-lg-0">
-          <b-nav-item to="/" active-class="active" exact>Главная</b-nav-item>
-          <b-nav-item to="/clients"
-                      v-if="$auth.loggedIn === true"
+          <b-nav-item to="/console" active-class="active" exact>Консоль</b-nav-item>
+          <b-nav-item to="/console/users"
+                      active-class="active">Пользователи</b-nav-item>
+          <b-nav-item to="/console/clients"
                       active-class="active">Соискатели</b-nav-item>
+          <b-nav-item to="/console/pages"
+                      active-class="active">Страницы</b-nav-item>
+          <b-nav-item to="/console/navigation"
+                      active-class="active">Навигация</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav v-if="$auth.loggedIn === false" class="ml-auto mb-2 mb-lg-0">
