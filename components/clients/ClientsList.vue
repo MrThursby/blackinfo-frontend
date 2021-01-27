@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <h1>{{ headline }}</h1>
     <div v-if="clients.length === 0 && clientsMeta.count !== 0">
       <Loading/>
@@ -31,7 +31,7 @@
         </b-card-header>
         <b-collapse :id="'clients-' + index" accordion="clients" role="tabpanel">
           <b-card-body>
-            <b-card-text v-if="current">
+            <b-card-text v-if="Object.keys(current).length">
               <div class="row">
                 <div class="col-md-auto mb-2">
                   <span class="font-weight-bold text-light">Имя:</span> {{ current.first_name }}<br/>
@@ -75,7 +75,7 @@
                 </div>
               </div>
             </b-card-text>
-            <b-card-text v-if="!current" class="p-3">
+            <b-card-text v-if="!Object.keys(current).length" class="p-3">
               <Loading/>
             </b-card-text>
           </b-card-body>
@@ -87,6 +87,14 @@
     </b-modal>
     <span v-if="clientsMeta.count === 0">Список пуст</span>
     <span v-if="clientsMeta.count !== 0 && clients.length !== 0">Уточните критерии запроса, для уменьшения числа результатов</span>
+    <b-pagination
+      v-if="clientsMeta.total > clientsMeta.per_page && showPagination === true"
+      v-model="currentPage"
+      :total-rows="clientsMeta.total"
+      :per-page="clientsMeta.per_page"
+      aria-controls="my-table"
+      class="justify-content-center"
+    ></b-pagination>
   </div>
 </template>
 
@@ -96,8 +104,11 @@
   export default {
     name: "ClientsList",
     props: {
-      headline: {type: String, default: "Соискатели"}
+      headline: {type: String, default: "Соискатели"},
+      showPagination: {type: Boolean, default: false},
+      showQueryMsg: {type: Boolean, default: true},
     },
+    data: () => ({currentPage: 1}),
     computed: {
       clients() {
         return this.$store.getters["clients/clients"]
@@ -108,6 +119,11 @@
       current() {
         return this.$store.getters["clients/current"]
       },
+    },
+    watch: {
+      currentPage: function (page) {
+        this.$store.dispatch("clients/fetchPage", page)
+      }
     },
     methods: {
       getCurrent(id) {

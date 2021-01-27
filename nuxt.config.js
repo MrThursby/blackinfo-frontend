@@ -121,7 +121,7 @@ export default {
     use: [
       'markdown-it-div',
       'markdown-it-attrs',
-      'markdown-it-container',
+      //'markdown-it-container',
     ],
   },
 

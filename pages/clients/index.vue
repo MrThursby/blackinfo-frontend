@@ -48,7 +48,7 @@
         </form>
       </div>
     </div>
-    <ClientsList/>
+    <ClientsList :show-pagination="showPagination"/>
   </div>
 </template>
 
@@ -68,16 +68,20 @@
     },
     data: () => ({
       query: '',
+      showPagination: false,
     }),
     methods: {
       getAll() {
         this.$store.dispatch("clients/fetch")
+        this.showPagination = false
       },
       getOwns() {
         this.$store.dispatch("clients/fetchOwns")
+        this.showPagination = true
       },
       getQuery() {
         this.$store.dispatch("clients/fetchQuery", this.query)
+        this.showPagination = false
       },
     },
     components: {
