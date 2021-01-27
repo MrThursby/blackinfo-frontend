@@ -38,7 +38,8 @@ export default {
         regular: true
       }
     }],
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/moment',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -127,6 +128,11 @@ export default {
 
   nuxtValidate: {
     lang: 'ru',
+  },
+
+  moment: {
+    defaultLocale: 'ru',
+    locales: ['ru']
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

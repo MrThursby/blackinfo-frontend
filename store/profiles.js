@@ -36,7 +36,7 @@ export const actions = {
     }
 
 
-    let profiles = await this.$axios.$get('/api/users/', {params: params})
+    let profiles = await this.$axios.$get('/api/users', {params: params})
 
     commit('setProfiles', profiles.data.data)
     commit('setMeta', profiles.data.meta)
