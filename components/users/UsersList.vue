@@ -4,7 +4,7 @@
     <div v-if="users.length === 0 && usersMeta.count !== 0">
       <Loading/>
     </div>
-    <div v-if="users.length !== 0" id="clients" class="accordion mb-2" role="tablist">
+    <div v-if="users.length !== 0" id="users" class="accordion mb-2" role="tablist">
       <b-card v-for="(user, index) of users" :key="index" no-body>
         <b-card-header class="p-1" header-tag="header" role="tab" header-class="bg-dark">
           <b-button
@@ -29,7 +29,7 @@
             </div>
           </b-button>
         </b-card-header>
-        <b-collapse :id="'user-' + index" accordion="clients" role="tabpanel">
+        <b-collapse :id="'user-' + index" accordion="pages" role="tabpanel">
           <b-card-body>
             <b-card-text v-if="Object.keys(current).length">
               <div class="row">
@@ -49,7 +49,6 @@
                 <div class="col-auto">
                   <button
                     v-if="user.role.name === 'unchecked'"
-                    v-b-modal.clients-edit
                     class="btn btn-sm btn-primary ml-auto mb-2"
                     @click="setRole(user.id, 'user')"
                   >
@@ -63,7 +62,6 @@
                   </button>
                   <button
                     v-if="user.role.name !== 'admin'"
-                    v-b-modal.clients-edit
                     class="btn btn-sm btn-primary ml-auto mb-2"
                     @click="setRole(user.id, 'admin')"
                   >
@@ -77,7 +75,6 @@
                   </button>
                   <button
                     v-if="user.role.name === 'admin'"
-                    v-b-modal.clients-edit
                     class="btn btn-sm btn-primary ml-auto mb-2"
                     @click="setRole(user.id, 'user')"
                   >
@@ -91,7 +88,6 @@
                   </button>
                   <button
                     v-if="user.role.name !== 'banned'"
-                    v-b-modal.clients-edit
                     class="btn btn-sm btn-danger ml-auto mb-2"
                     @click="setRole(user.id, 'banned')"
                   >
@@ -105,7 +101,6 @@
                   </button>
                   <button
                     v-if="user.role.name === 'banned'"
-                    v-b-modal.clients-edit
                     class="btn btn-sm btn-danger ml-auto mb-2"
                     @click="setRole(user.id, 'user')"
                   >
@@ -118,7 +113,6 @@
                     <span class="ml-1">Убрать из черного списка</span>
                   </button>
                   <button
-                    v-b-modal.clients-edit
                     class="btn btn-sm btn-secondary ml-auto mb-2"
                   >
                     <b-icon
@@ -138,9 +132,6 @@
         </b-collapse>
       </b-card>
     </div>
-    <b-modal id="clients-edit" size="lg" title="BlackInfo" class="pl-0" hide-footer>
-      <!-- <EditForm :client="current"/> -->
-    </b-modal>
     <span v-if="usersMeta.count === 0">Список пуст</span>
     <b-pagination
       v-if="usersMeta.total > usersMeta.per_page"
