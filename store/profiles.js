@@ -43,7 +43,6 @@ export const actions = {
   },
   async fetchCurrent({commit}, id) {
     const user = await this.$axios.$get('/api/users/'+id)
-
     commit('setCurrent', user.data)
   },
   clearCurrent({commit}) {
