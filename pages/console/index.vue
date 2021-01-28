@@ -21,9 +21,9 @@
             Пользователи
           </b-card-header>
           <b-card-body>
-            <b-card-text>Всего: {{ count }}</b-card-text>
-            <b-card-text>Непроверенных: {{ count }}</b-card-text>
-            <b-card-text>Регистраций за месяц: {{ count }}</b-card-text>
+            <b-card-text>Всего: {{ users.count }}</b-card-text>
+            <b-card-text>Непроверенных: {{ users.uncheckedCount }}</b-card-text>
+            <b-card-text>Регистраций за месяц: {{ users.monthCount }}</b-card-text>
             <b-btn block variant="success">Управление -></b-btn>
           </b-card-body>
         </b-card>
@@ -59,7 +59,12 @@
         monthCount: (await $axios.$get('/api/clients/count?after=' + lastMonthDate)).data,
         yearCount: (await $axios.$get('/api/clients/count?after=' + lastYearDate)).data,
       }
-      return {lastMonthDate, lastYearDate, clients}
+      let users = {
+        count: (await $axios.$get('/api/users/count')).data,
+        uncheckedCount: (await $axios.$get('/api/users/count?role=unchecked')).data,
+        monthCount: (await $axios.$get('/api/users/count?after=' + lastMonthDate)).data,
+      }
+      return {clients, users}
     },
     computed: {
       count() {

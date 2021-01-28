@@ -21,8 +21,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetch({commit}) {
-    const pages = await this.$axios.$get('/api/pages')
+  async fetch({commit}, id = 1) {
+    commit('setPages', [])
+    const pages = await this.$axios.$get('/api/pages?page=' + id)
 
     commit('setMeta', pages.data.meta)
     commit('setPages', pages.data.data)

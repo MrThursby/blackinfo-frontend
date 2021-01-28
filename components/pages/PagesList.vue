@@ -125,11 +125,7 @@
     },
     watch: {
       currentPage: function(page) {
-        this.$store.dispatch('profiles/fetch', page)
-      },
-      currentRole: function() {
-        this.currentPage = 1
-        this.$store.dispatch('profiles/fetch')
+        this.$store.dispatch('pages/fetch', page)
       },
     },
     methods: {

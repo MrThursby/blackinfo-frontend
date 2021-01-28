@@ -11,6 +11,11 @@
           <b-nav-item to="/clients"
                       v-if="$auth.loggedIn === true"
                       active-class="active">Соискатели</b-nav-item>
+          <b-nav-item-dropdown v-if="menu.length >= 1" text="Ещё">
+            <b-dropdown-item v-for="(item, index) of menu"
+                             :to="'/pages/'+item.page.id"
+                             :key="index" active-class="active">{{ item.title }}</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
 
         <b-navbar-nav v-if="$auth.loggedIn === false" class="ml-auto mb-2 mb-lg-0">
@@ -39,6 +44,11 @@
   export default {
     props: {
       sitename: {type: String, default: "App"},
+    },
+    computed: {
+      menu() {
+        return this.$store.getters["navigation/navbar"]
+      },
     },
     methods: {
       async logoutUser() {

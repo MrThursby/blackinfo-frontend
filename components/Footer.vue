@@ -6,7 +6,7 @@
                     <h5>BlackInfo</h5>
                     <ul class="nav flex-column flex-sm-row mb-0">
                         <li v-for="(item, index) of menu" class="nav-item" :key="index">
-                            <nuxt-link :to="'/pages/'+item.id" class="nav-link text-light p-0 pr-sm-3">
+                            <nuxt-link :to="'/pages/'+item.page.id" class="nav-link text-light p-0 pr-sm-3">
                               {{ item.title }}
                             </nuxt-link>
                         </li>
