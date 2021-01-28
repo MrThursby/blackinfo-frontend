@@ -46,8 +46,9 @@
     },
     props: {
       page: {
+        id: {type: Number, required: true},
         title: {type: String, required: true},
-        content: {type: String, required: true}
+        content: {type: String, required: true},
       },
     },
     methods: {
@@ -60,6 +61,7 @@
             appendToast: false,
           });
           this.$store.dispatch("pages/fetch")
+          this.$store.dispatch("pages/fetchCurrent", this.page.id)
         }).catch(e => {
           if(e.response.status === 422){
             this.form_errors = e.response.data.errors
