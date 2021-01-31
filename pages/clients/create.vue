@@ -55,7 +55,22 @@
                   </div>
                 </div>
               </div>
-
+              <b-form-group id="docs-group"
+                  label="Документы/фото, подверждающие личность соискателя"
+                  label-for="docs-avatar">
+                <b-form-file
+                  multiple
+                  id="docs"
+                  v-model="form.docs"
+                  browse-text="Выбрать"
+                  accept=".jpg, .png, .gif"
+                  placeholder="Выберите один или несколько файлов..."></b-form-file>
+                <div v-if="!!form_errors.docs"
+                    v-for="(doc, index) of form_errors.docs"
+                    :key="index" class="invalid-feedback d-block">
+                    <p v-for="(error,index) of doc" :key="'doc-error-'+index">Изображение №{{index}}: {{ error }}</p>
+                    </div>
+              </b-form-group>
               <div class="form-group">
                 <label for="violation">Нарушение</label>
                 <textarea class="form-control" v-model="form.violation" id="violation" :class="{'is-invalid': !!form_errors.violation && form_errors.violation.length !== 0}" rows="5"></textarea>
@@ -66,9 +81,9 @@
                 <div class="custom-control custom-switch">
                   <input v-model="form.violation_status" type="checkbox" class="custom-control-input"
                          id="violation_status">
-                  <label class="custom-control-label" v-if="form.violation_status === false" for="violation_status">Не
+                  <label class="custom-control-label" v-if="!!form.violation_status === false" for="violation_status">Не
                     возмещён</label>
-                  <label class="custom-control-label" v-if="form.violation_status === true" for="violation_status">Возмещён</label>
+                  <label class="custom-control-label" v-if="!!form.violation_status === true" for="violation_status">Возмещён</label>
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Добавить</button>
@@ -90,11 +105,12 @@ export default {
         middle_name: null,
         date_of_birth: null,
         phone: null,
+        docs: [],
         passport: null,
         passport_issued_by: null,
         passport_issued_date: null,
         violation: null,
-        violation_status: false,
+        violation_status: 0,
       },
       form_errors: {
         first_name: [],
@@ -102,6 +118,7 @@ export default {
         middle_name: [],
         date_of_birth: [],
         phone: [],
+        docs: [],
         passport: [],
         passport_issued_by: [],
         passport_issued_date: [],
@@ -112,13 +129,30 @@ export default {
   },
   methods: {
     async createClient() {
-      await this.$axios.$post("/api/clients", this.form).then(r => {
+      let formData = new FormData()
+      formData.append('first_name', this.form.first_name)
+      formData.append('middle_name', this.form.middle_name)
+      formData.append('last_name', this.form.last_name)
+      formData.append('date_of_birth', this.form.date_of_birth)
+      for(var i = 0; i < this.form.docs.length; i++){
+        formData.append('docs[' + i + ']', this.form.docs[i])
+      }
+      formData.append('phone', this.form.phone)
+      formData.append('passport', this.form.passport)
+      formData.append('passport_issued_date', this.form.passport_issued_date)
+      formData.append('passport_issued_by', this.form.passport_issued_by)
+      formData.append('violation_status', this.form.violation_status ? 1 : 0)
+      formData.append('violation', this.form.violation)
+      await this.$axios.$post("/api/clients", formData, {
+          headers: {'Content-Type': 'multipart/form-data'}
+        }).then(r => {
         this.$bvToast.toast(`Соикатель сохранён`, {
           title: "BlackInfo",
           autoHideDelay: 5000,
           variant: "success",
           appendToast: false,
         })
+        this.$store.dispatch('clients/fetch')
         this.$router.push("/clients")
       }).catch(e => {
         if(e.response.status === 422) {

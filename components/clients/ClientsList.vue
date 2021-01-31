@@ -50,6 +50,7 @@
               <p class="mb-2">
                 {{ current.violation }}
               </p>
+              <silent-box class="form-row align-items-center" :gallery="current.docs"></silent-box>
               <span class="font-weight-bold" v-if="!!current.violation_status">Ущерб возмещён</span>
               <span class="font-weight-bold" v-if="!current.violation_status">Ущерб не возмещён</span><br/>
               <div class="row align-items-center">
@@ -99,8 +100,8 @@
 </template>
 
 <script>
-  import Loading from "~/components/Loading";
-  import EditForm from "~/components/clients/EditForm";
+  import Loading from "~/components/Loading"
+  import EditForm from "~/components/clients/EditForm"
   export default {
     name: "ClientsList",
     props: {

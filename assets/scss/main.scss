@@ -34,3 +34,14 @@ blockquote {
   border-width: 3px!important;
   border-radius: 3px;
 }
+
+.silentbox-item {
+  @extend .col-4, .col-md-3, .col-lg-2, .px-1, .mb-2, .text-center;
+  img {
+    @extend .mw-100;
+  }
+}
+
+#silentbox-overlay {
+  z-index: 1040!important;
+}
