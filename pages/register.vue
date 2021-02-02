@@ -116,11 +116,12 @@
               </div>
               <b-form-group>
                 <b-form-checkbox
-                  id="checkbox-1"
+                  id="policy"
                   v-model="status"
-                  name="checkbox-1"
+                  name="policy"
                   value="accepted"
                   unchecked-value="not_accepted"
+                  required
                 >
                   Я соглашаюсь с <nuxt-link to="/pages/2">политикой обработки персональных данных</nuxt-link>
                 </b-form-checkbox>
