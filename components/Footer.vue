@@ -23,16 +23,16 @@
 </template>
 
 <script>
-export default {
-  computed: {
-    count() {
-      return this.$store.getters["clients/count"]
-    },
-    menu() {
-      return this.$store.getters["navigation/footer"]
+  export default {
+    computed: {
+      count() {
+        return this.$store.getters["clients/count"]
+      },
+      menu() {
+        return this.$store.getters["navigation/footer"]
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>

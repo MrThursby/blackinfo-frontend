@@ -47,7 +47,30 @@
         </div>
       </div>
     </div>
-
+    <b-form-group id="docs-group"
+                  label="Документы/фото, подверждающие личность соискателя"
+                  label-for="docs-avatar">
+      <b-form-file
+        multiple
+        id="docs"
+        v-model="form.docs"
+        browse-text="Выбрать"
+        accept=".jpg, .png, .gif"
+        placeholder="Выберите один или несколько файлов..."></b-form-file>
+      <div v-if="!!form_errors.docs"
+           v-for="(error, index) of form_errors.docs"
+           :key="index" class="invalid-feedback d-block">{{error}}</div>
+    </b-form-group>
+    <div class="form-row align-items-center">
+      <div v-for="(doc,index) of docs" :key="'doc-delete-'+index" class="col-6 col-md-4 col-lg-2 text-center overflow-hidden">
+        <div class="mb-2 mw-100 mh-100 position-relative">
+          <img :src="doc.thumbnail" class="mw-100" />
+          <div @click="deleteDoc(doc.id, index)" class="position-absolute opacity-0 cursor-pointer hover-opacity-1 top-0 bg-black w-100 h-100 d-flex flex-row align-items-center">
+            <div class="col h1" title="Удалить">&times;</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="form-group">
       <label for="violation">Нарушение</label>
       <textarea class="form-control" v-model="form.violation" id="violation" :class="{'is-invalid': !!form_errors.violation && form_errors.violation.length !== 0}" rows="5"></textarea>
@@ -65,8 +88,8 @@
     </div>
     <div class="form-group mb-0">
       <button class="btn btn-primary" id="clientModalSubmit" type="submit">Сохранить</button>
-      <button @click="hideModal" class="btn btn-secondary" id="clientModalHide" type="button">Отмена</button>
 
+      <button @click="hideModal" class="btn btn-secondary float-right ml-1" id="clientModalHide" type="button">Отмена</button>
       <button @click="deleteClient" class="btn btn-danger float-right" id="clientDelete" type="button">Удалить</button>
     </div>
   </form>
@@ -78,12 +101,14 @@ import moment from 'moment'
 export default {
   data() {
     return {
+      docs: this.client.docs.slice(),
       form: {
         first_name: this.client.first_name,
         middle_name: this.client.middle_name,
         last_name: this.client.last_name,
         date_of_birth: moment(this.client.date_of_birth, 'DD.MM.YYYY').format('YYYY-MM-DD'),
         phone: this.client.phone,
+        docs: [],
         passport: this.client.passport,
         passport_issued_date: moment(this.client.passport_issued_date, 'DD.MM.YYYY').format('YYYY-MM-DD'),
         passport_issued_by: this.client.passport_issued_by,
@@ -95,6 +120,7 @@ export default {
         middle_name: null,
         last_name: null,
         date_of_birth: null,
+        docs: null,
         phone: null,
         passport: null,
         passport_issued_date: null,
@@ -111,18 +137,36 @@ export default {
       middle_name: {type: String, default: ''},
       last_name: {type: String, default: ''},
       date_of_birth: {type: String, default: ''},
+      docs: {type: Array, default: ''},
       phone: {type: String, default: ''},
       passport: {type: String, default: ''},
       passport_issued_date: {type: String, default: ''},
       passport_issued_by: {type: String, default: ''},
       violation: {type: String, default: ''},
-      violation_status: {type: Boolean, default: ''},
+      violation_status: {type: Boolean, default: false},
     }
   },
   methods: {
     async updateClient() {
-      await this.$axios.$put('/api/clients/' + this.client.id, this.form).then(() => {
-        //this.$root.$emit('bv::hide::modal', 'clients-edit', '#clientModalSubmit')
+      let formData = new FormData()
+      formData.append('_method', 'PUT')
+      formData.append('first_name', this.form.first_name)
+      formData.append('middle_name', this.form.middle_name)
+      formData.append('last_name', this.form.last_name)
+      formData.append('date_of_birth', this.form.date_of_birth)
+      for(var i = 0; i < this.form.docs.length; i++){
+        formData.append('docs[' + i + ']', this.form.docs[i])
+      }
+      formData.append('phone', this.form.phone)
+      formData.append('passport', this.form.passport)
+      formData.append('passport_issued_date', this.form.passport_issued_date)
+      formData.append('passport_issued_by', this.form.passport_issued_by)
+      formData.append('violation_status', this.form.violation_status)
+      formData.append('violation', this.form.violation)
+      await this.$axios.$post('/api/clients/' + this.client.id, formData, {
+          headers: {'Content-Type': 'multipart/form-data'}
+        }).then(() => {
+        this.$root.$emit('bv::hide::modal', 'clients-edit', '#clientModalSubmit')
         this.$store.dispatch("clients/reFetchCurrent")
         this.$bvToast.toast(`Соискатель успешно обновлён`, {
           title: "BlackInfo",
@@ -130,7 +174,7 @@ export default {
           variant: "success",
           appendToast: false,
         });
-        this.$store.dispatch("clients/reFetch")
+        this.form.docs = []
       }).catch(e => {
         if(e.response.status === 422){
           this.form_errors = e.response.data.errors
@@ -160,9 +204,47 @@ export default {
         });
       }
     },
+    async deleteDoc(id, index){
+      await this.$axios.$put('/api/clients/' + this.client.id, {delete_doc: id}).then(() => {
+        this.$store.dispatch("clients/reFetchCurrent")
+        this.$bvToast.toast(`Фотография успешно удалена`, {
+          title: "BlackInfo",
+          autoHideDelay: 5000,
+          variant: "success",
+          appendToast: false,
+        });
+        this.docs.splice(index, 1)
+      }).catch(e => {
+        this.$bvToast.toast(`Ошибка. Фотография не удалена. Попробуйте позже.`, {
+          title: "BlackInfo",
+          autoHideDelay: 5000,
+          variant: "danger",
+          appendToast: false,
+        });
+      })
+    },
     hideModal() {
       this.$root.$emit('bv::hide::modal', 'clients-edit', '#clientModalHide')
     },
   }
 }
 </script>
+
+<style scoped>
+  .top-0 {
+    top: 0;
+  }
+  .opacity-0 {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .hover-opacity-1:hover {
+    opacity: 1;
+  }
+  .bg-black {
+    background: #000000aa;
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
+</style>

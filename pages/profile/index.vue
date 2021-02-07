@@ -35,7 +35,10 @@
       </b-card>
     </div>
     <div class="mt-4">
-      <ClientsList v-if="$auth.user.email_verified_at !== null" headline="Мои соискатели"/>
+      <ClientsList v-if="$auth.user.email_verified_at !== null"
+                   :show-pagination="true"
+                   :show-query-msg="false"
+                   headline="Мои соискатели"/>
     </div>
   </div>
 </template>

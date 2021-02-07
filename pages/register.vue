@@ -114,6 +114,18 @@
                   id="passwordConfirmation"
                 />
               </div>
+              <b-form-group>
+                <b-form-checkbox
+                  id="policy"
+                  v-model="status"
+                  name="policy"
+                  value="accepted"
+                  unchecked-value="not_accepted"
+                  required
+                >
+                  Я соглашаюсь с <nuxt-link to="/pages/2">политикой обработки персональных данных</nuxt-link>
+                </b-form-checkbox>
+              </b-form-group>
               <button type="submit" class="btn btn-primary">
                 Зарегистрироваться
               </button>

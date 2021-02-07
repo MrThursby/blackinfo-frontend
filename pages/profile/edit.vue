@@ -124,6 +124,7 @@
                       label-for="about">
                       <b-textarea
                         id="about"
+                        rows="5"
                         v-model="addInfForm.about"></b-textarea>
                       <div v-if="!!addInfErrors.about"
                            v-for="(error, index) of addInfErrors.about"
@@ -212,7 +213,7 @@
         },
         addInfForm: {
           avatar: null,
-          site: this.$auth.user.site,
+          site: this.$auth.user.site ?? "",
           about: this.$auth.user.about,
         },
         addInfErrors: {
@@ -271,7 +272,11 @@
       async addInfSubmit() {
         let formData = new FormData();
         formData.append('_method', 'PATCH')
-        formData.append('site', this.addInfForm.site)
+        if (this.addInfForm.site !== ""){
+          formData.append('site', this.addInfForm.site)
+        } else {
+          formData.append('site', '')
+        }
         formData.append('about', this.addInfForm.about)
         if(this.addInfForm.avatar !== null)
           formData.append('avatar', this.addInfForm.avatar)

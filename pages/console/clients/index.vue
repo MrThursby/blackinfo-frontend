@@ -2,15 +2,14 @@
   <div class="container pb-5 pt-3">
     <div class="row mb-4">
       <div class="col pb-lg-0 pb-3 h-auto">
-        <nuxt-link class="btn btn-success" to="/clients/create">
-          <span class="d-block d-sm-none"
-          ><b-icon
+        <nuxt-link class="btn btn-success" to="/console/clients/create">
+          <span class="d-block d-sm-none">
+            <b-icon
             aria-hidden="true"
             font-scale="1"
             icon="plus-circle"
-            shift-v="1"
-          ></b-icon
-          ></span>
+            shift-v="1" />
+          </span>
           <span class="d-none d-sm-block">Добавить соискателя</span>
         </nuxt-link>
       </div>

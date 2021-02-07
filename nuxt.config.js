@@ -24,6 +24,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    '~/plugins/silentbox.js',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -38,7 +39,8 @@ export default {
         regular: true
       }
     }],
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/moment',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -121,12 +123,17 @@ export default {
     use: [
       'markdown-it-div',
       'markdown-it-attrs',
-      'markdown-it-container',
+      //'markdown-it-container',
     ],
   },
 
   nuxtValidate: {
     lang: 'ru',
+  },
+
+  moment: {
+    defaultLocale: 'ru',
+    locales: ['ru']
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
