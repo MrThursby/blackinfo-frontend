@@ -25,7 +25,10 @@
                   id="exampleInputPassword1"
                 />
               </div>
-              <button type="submit" class="btn btn-primary">Войти</button>
+              <div class="form-group d-flex align-items-center">
+                <button type="submit" class="btn btn-primary">Войти</button>
+                <nuxt-link class="px-3" to="/forgot-password">Забыли пароль?</nuxt-link>
+              </div>
             </form>
           </div>
         </div>
