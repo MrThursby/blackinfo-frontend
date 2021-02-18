@@ -63,7 +63,7 @@ export default {
   proxy: {
     '/auth': {
       target: process.env.API_URL + '/oauth',
-      changeOrigin: false, //process.env.PORT === 3000,
+      changeOrigin: process.env.AUTH_CHANGE_ORIGIN ?? true, //process.env.PORT === 3000,
       headers: {
         Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET).toString('base64')
       },
@@ -73,14 +73,14 @@ export default {
     },
     '/api': {
       target: process.env.API_URL + '/api',
-      changeOrigin: process.env.PORT === 3000,
+      changeOrigin: process.env.API_CHANGE_ORIGIN ?? false,
       pathRewrite: {
         '^/api' : '/'
       }
     },
     '/storage': {
       target: process.env.API_URL + '/storage',
-      changeOrigin: process.env.PORT === 3000,
+      changeOrigin: process.env.API_CHANGE_ORIGIN ?? false,
       pathRewrite: {
         '^/storage' : '/'
       }
