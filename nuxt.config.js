@@ -54,6 +54,17 @@ export default {
     '@nuxtjs/markdownit',
     'bootstrap-vue/nuxt',
     'nuxt-validate',
+    [
+      '@nuxtjs/yandex-metrika',
+      {
+        id: '72774967',
+        webvisor: true,
+        // clickmap: true,
+        // useCDN: false,
+        // trackLinks: true,
+        // accurateTrackBounce: true,
+      }
+    ]
   ],
 
 
