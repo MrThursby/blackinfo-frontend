@@ -3,7 +3,7 @@
     <div class="container px-3">
       <b-navbar-brand to="/">Black<span class="text-success">Info</span></b-navbar-brand>
 
-      <b-navbar-toggle class="p-1 outline-none" target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle class="p-1 outline-none" target="nav-collapse" />
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="mb-1 mb-lg-0">
