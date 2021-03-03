@@ -11,7 +11,7 @@
             <b-card-text>Всего: {{ count }}</b-card-text>
             <b-card-text>За месяц: {{ clients.monthCount }}</b-card-text>
             <b-card-text>За год: {{ clients.yearCount }}</b-card-text>
-            <b-btn block variant="success">Управление -></b-btn>
+            <b-btn to="/console/clients" block variant="success">Управление -></b-btn>
           </b-card-body>
         </b-card>
       </div>
@@ -24,7 +24,7 @@
             <b-card-text>Всего: {{ users.count }}</b-card-text>
             <b-card-text>Непроверенных: {{ users.uncheckedCount }}</b-card-text>
             <b-card-text>Регистраций за месяц: {{ users.monthCount }}</b-card-text>
-            <b-btn block variant="success">Управление -></b-btn>
+            <b-btn to="/console/clients" block variant="success">Управление -></b-btn>
           </b-card-body>
         </b-card>
       </div>
