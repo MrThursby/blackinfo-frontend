@@ -13,7 +13,7 @@
           </ul>
           <span class="text-white">Не является публичной офертой</span>
         </div>
-        <div class="col-12 col-sm text-md-right align-self-end">
+        <div v-if="$auth.loggedIn === true && $auth.user.role_name === 'admin'" class="col-12 col-sm text-md-right align-self-end">
           <!--&copy; Все права защищены - 2020-->
           Соискателей в базе: {{ count }}
         </div>
