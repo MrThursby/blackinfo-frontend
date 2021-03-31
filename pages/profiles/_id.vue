@@ -45,12 +45,18 @@
   export default {
     name: "profile-show",
     middleware: 'auth',
-    async fetch({store}, params) {
-      await store.dispatch("clients/fetchForUser", params.id)
+    async fetch({store, params}) {
+      await store.dispatch("profiles/fetchCurrent", params.id)
+      await store.dispatch("clients/fetchOwns", params.id)
     },
     data() {
       return {
         profileOpened: false,
+      }
+    },
+    computed: {
+      user() {
+        return this.$store.getters['profiles/current'];
       }
     },
     components: {

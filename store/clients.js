@@ -48,9 +48,9 @@ export const actions = {
     commit('setClients', clients.data.data)
     commit('setMeta', clients.data.meta)
   },
-  async fetchOwns({commit}) {
+  async fetchOwns({commit}, user_id) {
     commit('setClients', [])
-    const url = '/api/clients?owns=1'
+    const url = '/api/clients?owns=' + user_id
     const clients = await this.$axios.$get(url)
 
     commit('setLastClientsResponseUrl', url)
