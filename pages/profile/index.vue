@@ -51,7 +51,7 @@
     middleware: 'auth',
     async fetch({store}) {
       if(store.state.auth.user.email_verified_at !== null){
-        await store.dispatch("clients/fetchOwns")
+        await store.dispatch("clients/fetchOwns", store.state.auth.user.id)
       }
     },
     data() {

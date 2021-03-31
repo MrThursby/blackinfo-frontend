@@ -56,7 +56,7 @@
               <div class="row align-items-center">
                 <div class="col">
                   <span class="font-weight-bold text-light">Автор: </span>
-                  <a href="#">{{ client.author.name }}</a>
+                  <nuxt-link :to="'/profiles/' + client.author.id">{{ client.author.name }}</nuxt-link>
                 </div>
                 <div class="col-auto">
                   <button
