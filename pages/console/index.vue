@@ -31,13 +31,12 @@
       <div class="col-md-4">
         <b-card no-body>
           <b-card-header class="text-center">
-            Статистика
+            Статистика за месяц
           </b-card-header>
           <b-card-body>
-            <b-card-text>Посещений за месяц: *</b-card-text>
-            <b-card-text>Поисковых запросов за месяц: *</b-card-text>
-            <b-card-text>Просмотров конкретного пользователя: *</b-card-text>
-            <b-alert :show="true" variant="warning" class="mb-0">Счётчик посещений не подключен</b-alert>
+            <b-card-text>Просмотров: {{ metrika.views }}</b-card-text>
+            <b-card-text>Посетителей: {{ metrika.visitors }}</b-card-text>
+            <b-card-text>Визиты: {{ metrika.visits }}</b-card-text>
           </b-card-body>
         </b-card>
       </div>
@@ -64,7 +63,8 @@
         uncheckedCount: (await $axios.$get('/api/users/count?role=unchecked')).data,
         monthCount: (await $axios.$get('/api/users/count?after=' + lastMonthDate)).data,
       }
-      return {clients, users}
+      let metrika = (await $axios.$get('/api/metrika/visitors')).data
+      return { clients, users, metrika }
     },
     computed: {
       count() {

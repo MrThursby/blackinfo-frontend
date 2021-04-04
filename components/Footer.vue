@@ -6,12 +6,13 @@
           <h5>BlackInfo</h5>
           <ul class="nav flex-column flex-sm-row mb-3">
             <li v-for="(item, index) of menu" class="nav-item" :key="index">
-              <nuxt-link :to="'/pages/'+item.page_id" class="nav-link text-light p-0 pr-sm-3">
+              <nuxt-link no-prefetch :to="'/pages/'+item.page_id" class="nav-link text-light p-0 pr-sm-3">
                 {{ item.title }}
               </nuxt-link>
             </li>
           </ul>
-          <span class="text-white">Не является публичной офертой</span>
+          <p class="text-white">Не является публичной офертой</p>
+          <p class="text-white text-light mb-0">© black-info.ru - 2018-{{ (new Date()).getFullYear() }}</p>
         </div>
         <div v-if="$auth.loggedIn === true && $auth.user.role_name === 'admin'" class="col-12 col-sm text-md-right align-self-end">
           <!--&copy; Все права защищены - 2020-->

@@ -7,32 +7,32 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="mb-1 mb-lg-0">
-          <b-nav-item to="/" active-class="active" exact>Главная</b-nav-item>
-          <b-nav-item to="/clients"
+          <b-nav-item no-prefetch to="/" active-class="active" exact>Главная</b-nav-item>
+          <b-nav-item no-prefetch to="/clients"
                       v-if="$auth.loggedIn === true"
                       active-class="active">Соискатели</b-nav-item>
           <b-nav-item-dropdown v-if="menu.length >= 1" text="Ещё">
-            <b-dropdown-item v-for="(item, index) of menu"
+            <b-dropdown-item no-prefetch v-for="(item, index) of menu"
                              :to="'/pages/'+item.page.id"
                              :key="index" active-class="active">{{ item.title }}</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
 
         <b-navbar-nav v-if="$auth.loggedIn === false" class="ml-auto mb-2 mb-lg-0">
-          <b-nav-item to="/login" active-class="active">Вход</b-nav-item>
-          <b-nav-item to="/register" active-class="active">Регистрация</b-nav-item>
+          <b-nav-item no-prefetch to="/login" active-class="active">Вход</b-nav-item>
+          <b-nav-item no-prefetch to="/register" active-class="active">Регистрация</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav v-if="$auth.loggedIn === true" class="ml-auto mb-2 mb-lg-0">
           <b-nav-item-dropdown :text="$auth.user.name" right>
-            <b-dropdown-item to="/profile" exact-active-class="active">Профиль</b-dropdown-item>
-            <b-dropdown-item to="/profile/edit" active-class="active">Редактировать профиль</b-dropdown-item>
+            <b-dropdown-item no-prefetch to="/profile" exact-active-class="active">Профиль</b-dropdown-item>
+            <b-dropdown-item no-prefetch to="/profile/edit" active-class="active">Редактировать профиль</b-dropdown-item>
             <b-dropdown-divider v-if="$auth.user.role_name === 'admin'"/>
-            <b-dropdown-item href="/console"
+            <b-dropdown-item no-prefetch href="/console"
                              v-if="$auth.user.role_name === 'admin'"
                              active-class="active">Панель управления</b-dropdown-item>
             <b-dropdown-divider />
-            <b-dropdown-item @click="logoutUser">Выход</b-dropdown-item>
+            <b-dropdown-item no-prefetch @click="logoutUser">Выход</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
