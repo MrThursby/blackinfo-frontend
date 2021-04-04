@@ -24,7 +24,7 @@
             <b-card-text>Всего: {{ users.count }}</b-card-text>
             <b-card-text>Непроверенных: {{ users.uncheckedCount }}</b-card-text>
             <b-card-text>Регистраций за месяц: {{ users.monthCount }}</b-card-text>
-            <b-btn to="/console/clients" block variant="success">Управление -></b-btn>
+            <b-btn to="/console/users" block variant="success">Управление -></b-btn>
           </b-card-body>
         </b-card>
       </div>
