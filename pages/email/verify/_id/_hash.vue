@@ -17,6 +17,7 @@
 
   export default {
     name: "verify-email",
+    middleware: 'auth',
     layout: 'verify',
     data() {
       return {
