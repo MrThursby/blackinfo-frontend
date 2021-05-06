@@ -5,7 +5,7 @@
         <Loading v-if="verified === null"/>
         <div v-if="verified === true" class="h1">Email подтверждён</div>
         <div v-if="verified === false" class="h1">
-          Неизвестная ошибка. Email подтверждён. Попробуйте позже.
+          Неизвестная ошибка. Email не подтверждён. Попробуйте позже.
         </div>
       </div>
     </div>
